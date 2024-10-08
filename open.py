@@ -29,7 +29,7 @@ def load_data(filename):
 
 #gör en funktion som hämtar en produkt
 
-    
+
 def remove_product(products, id):
     temp_product = None
 
@@ -85,6 +85,7 @@ def add_products(products, name, desc, price, quantity):
     
     return f"lade till producter: {id}"
 
+
 #TODO: gör om så du slipper använda global-keyword (flytta inte "product = []")
 #TODO: skriv en funktion som returnerar en specifik produkt med hjälp av id
 
@@ -93,13 +94,16 @@ locale.setlocale(locale.LC_ALL, 'sv_SE.UTF-8')
 
 os.system('cls' if os.name == 'nt' else 'clear')
 products = load_data('db_products.csv')
+
+
 while True:
     try:
         os.system('cls' if os.name == 'nt' else 'clear')
 
         print(view_products(products))  # Show ordered list of products
 
-        choice = input("Vill du (L)ägg till produkt, (V)isa eller (T)a bort en produkt? ").strip().upper()
+        choice = input("Vill du (L)ägg till produkt, (V)isa , (T)a bort en produkt eller (A)vsluta? ").strip().upper()
+
 
         if choice == "L":
             #skapa ett nytt id
@@ -112,7 +116,9 @@ while True:
             quantity = int(input("Antal: "))
 
             print(add_products(products, name, desc, price, quantity))
-
+        
+        elif choice == "A":
+            break
 
         elif choice in ["V", "T"]:
             index = int(input("Enter product ID: "))
@@ -143,3 +149,16 @@ while True:
     except ValueError:
         print("Välj en produkt med siffor")
         sleep(0.5)
+
+
+    # Define the CSV file path
+    csv_file_path = "db_products.csv"
+
+    # Write the products data to a CSV file
+    with open(csv_file_path, mode='w', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=["id", "name", "desc", "price", "quantity"])
+        writer.writeheader()  # Write the header row
+        writer.writerows(products)  # Write the product data
+
+    print(f"Data successfully saved to {csv_file_path}")
+    

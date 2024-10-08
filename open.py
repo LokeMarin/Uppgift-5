@@ -60,7 +60,7 @@ def view_product(products, id):
 def view_products(products):
     product_list = []
     for index, product in enumerate(products,1 ):
-        product_info = f"{index}) (#{product['id']}) {product['name']} \t {product['desc']} \t {locale.currency(product['price'], grouping=True)}"
+        product_info = f"{index}) (#{product['id']}) {product['name']} \t {product['desc']} \t {locale.currency(product['price'], grouping=True)} \t {product['quantity']}st"
         product_list.append(product_info)
     
     return "\n".join(product_list)
@@ -70,12 +70,12 @@ def add_products(products, name, desc, price, quantity):
 
     id_value = max_id['id']     #id_value är största id:t i hela databasen
 
-    id = id_value + 1   #skapa ett större och unikt id
+    new_id = id_value + 1   #skapa ett större och unikt id
 
 
     products.append(
         {
-        "id": id,
+        "id": new_id,
         "name": name,
         "desc": desc,
         "price": price,
@@ -83,7 +83,7 @@ def add_products(products, name, desc, price, quantity):
         }
     )
     
-    return f"lade till producter{id}"
+    return f"lade till producter: {id}"
 
 #TODO: gör om så du slipper använda global-keyword (flytta inte "product = []")
 #TODO: skriv en funktion som returnerar en specifik produkt med hjälp av id
